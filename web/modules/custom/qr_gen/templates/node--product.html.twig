@@ -1,0 +1,22 @@
+{% set id          = node.id|raw|striptags|raw|trim %}
+{% set title       = node.title.value|raw|striptags %}
+{% set img         = content.field_product_images.0['#markup'] %}
+{% set description = content.field_product_description %}
+
+{# <h2>{{title}}</h2> #}
+<div class="container">
+	<div class="row">
+		<div>
+			{% if img %}
+				<img src="{{img}}" class="img" alt="{{title}}">
+			{% else %}		
+				<img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="no-image">
+			{% endif %}	
+		</div>
+		<div>
+		  {% if description %}
+			<p>{{description}}</p>
+		  {% endif %}
+		</div>
+	</div>
+</div>

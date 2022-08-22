@@ -1,0 +1,4 @@
+name: QR Generator
+type: module
+description: A Custom Module Provides some extra Functionality.
+core_version_requirement: ^8 || ^9

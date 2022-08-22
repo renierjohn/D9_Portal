@@ -1,0 +1,6 @@
+{% set id       = fields.nid.content|raw|striptags|trim %}
+
+{{ attach_library('qr_gen/qr') }}
+
+<h2>BLOCK</h2>
+<img src="/sites/default/files/qr/{{id}}.png">

@@ -1,0 +1,40 @@
+<?php
+
+function qr_gen_form_alter(&$form,&$form_state,&$form_id){
+  if($form_id == 'node_product_form' || $form_id == 'node_product_edit_form'){
+     $form['actions']['submit']['#submit'][] =  'generate_qr';
+  }
+}
+
+function qr_gen_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  $bundle = $entity->bundle();
+  if($bundle == 'product'){
+   $title = $entity->getTitle();
+   $title = preg_replace('/\s+/', '', $title);
+   $entity->set('path','/product/'.$title);
+  }
+}
+
+function generate_qr($form,$form_state){
+  $values = $form_state->getValues();
+  $nid    = $values['nid'];
+  $data   = $values['field_product_link'][0]['value'];
+  \Drupal::service('qr_gen.content')->setID($nid)->setData($data)->encode();
+}
+
+function qr_gen_theme($existing, $type, $theme, $path) {
+  return [
+    'node__product' => [
+      'template' => 'node--product',
+      'base hook' => 'node',
+    ],
+     'views_view_fields__products__block' => [
+          'render element' => 'elements',
+          'base hook' => 'views field'
+      ]
+  ];
+}
+
+function qr_gen_install($is_syncing) {
+  \Drupal::service('file_system')->mkdir('public://qr');
+}

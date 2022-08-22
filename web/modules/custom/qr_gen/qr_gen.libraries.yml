@@ -1,0 +1,7 @@
+qr:
+  version: 1.0
+  js:
+    js/main.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

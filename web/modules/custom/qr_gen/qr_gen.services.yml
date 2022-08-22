@@ -1,0 +1,5 @@
+services:
+  qr_gen.content:
+    class: Drupal\qr_gen\Service\ContentService
+    arguments:
+      - '@entity_type.manager'
